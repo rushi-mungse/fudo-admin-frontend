@@ -1,0 +1,11 @@
+export { default as HomePage } from "./Home";
+export { default as LoginPage } from "./Login";
+export { default as CartPage } from "./Cart";
+export { default as SendOtpPage } from "./register/SendOtpPage";
+export { default as VerifyOtpPage } from "./register/VerifyOtpPage";
+export { default as DashBoardHomePage } from "./dashboard/DashBoardHome";
+export { default as Users } from "./dashboard/Users";
+export { default as Orders } from "./dashboard/Orders";
+export { default as ProductSizes } from "./dashboard/ProductSizes";
+export { default as ProductCategories } from "./dashboard/ProductCategories";
+export { default as Products } from "./dashboard/Products";
