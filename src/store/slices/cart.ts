@@ -11,6 +11,7 @@ const initialState: InitialStateType = {
 
 interface PayLoad {
     productId: number;
+    quantity: number;
 }
 
 export const cartSlice = createSlice({
@@ -20,7 +21,7 @@ export const cartSlice = createSlice({
 
     reducers: {
         addProduct: (state, action: PayloadAction<PayLoad>) => {
-            const { productId } = action.payload;
+            const { productId, quantity } = action.payload;
 
             if (!state.cart) {
                 state.cart = {
@@ -31,8 +32,8 @@ export const cartSlice = createSlice({
 
             if (!state.cart.items[productId]) state.cart.items[productId] = 0;
 
-            state.cart.items[productId] += 1;
-            state.cart.totalItems += 1;
+            state.cart.items[productId] += quantity;
+            state.cart.totalItems += quantity;
 
             window.localStorage.setItem("cart", JSON.stringify(state.cart));
         },
