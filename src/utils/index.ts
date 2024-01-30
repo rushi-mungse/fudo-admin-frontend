@@ -1,4 +1,9 @@
-import { CategoryData, CategoryDataType, ProductPriceDataType } from "../types";
+import {
+    CategoryData,
+    CategoryDataType,
+    ProductPriceDataType,
+    ProductSizeAndPriceType,
+} from "../types";
 
 export const roundCartItems = (totalItems: number): string => {
     if (totalItems >= 99) return "99+";
@@ -15,10 +20,25 @@ export const transformCategory = (
     return transformCategory;
 };
 
-export const getProductSizeWithPrice = (prices: ProductPriceDataType[]) => {
+export const getProductSizeWithPrice = (
+    prices: ProductPriceDataType[]
+): ProductSizeAndPriceType => {
+    let small, medium, large;
+    prices.map((price) => {
+        if (price.size.size === "small") small = price.price;
+        else if (price.size.size === "medium") medium = price.price;
+        else if (price.size.size === "large") large = price.price;
+    });
+
+    if (!small || !medium || !large) throw Error("Product size not found!");
+
     return {
-        [prices[0].size.size]: prices[0].price,
-        [prices[1].size.size]: prices[1].price,
-        [prices[2].size.size]: prices[2].price,
+        small,
+        medium,
+        large,
     };
+};
+
+export const getTotal = (price: number, quantity: number) => {
+    return price * quantity;
 };
