@@ -10,3 +10,7 @@ export { default as Modal } from "./Modal";
 export { default as ProductList } from "./product/ProductList";
 export { default as CreateProduct } from "./product/forms/CreateProduct";
 export { default as UpdateProduct } from "./product/forms/UpdateProduct";
+export { default as DeleteProduct } from "./product/DeleteProduct";
+export { default as SingleProduct } from "./product/SingleProduct";
+
+export { default as GoBack } from "./GoBack";
