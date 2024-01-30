@@ -116,6 +116,11 @@ export interface ProductDataType {
     prices: ProductPriceDataType[];
 }
 
+export enum ProductSizes {
+    small,
+    medium,
+    large,
+}
 export interface ProductSizeDataType {
     id: number;
     size: string;
@@ -161,4 +166,8 @@ export interface CategoryData {
     key: string;
 }
 
-export interface CreateProductData {}
+export interface ProductSizeAndPriceType {
+    small: number;
+    medium: number;
+    large: number;
+}
