@@ -1,7 +1,12 @@
 import { Layout } from "antd";
 import { useAppSelector } from "./hooks/reduxHooks";
 import { RootState } from "./store";
-import { DashBoardHeader, DashBoardSider, Header } from "./components";
+import {
+    DashBoardHeader,
+    DashBoardSider,
+    Header,
+    SingleProduct,
+} from "./components";
 import {
     Navigate,
     Outlet,
@@ -97,6 +102,7 @@ const Router = createBrowserRouter(
                 </Route>
             </Route>
             <Route path="product" element={<AuthRoute />}>
+                <Route path=":productId" element={<SingleProduct />} />
                 <Route
                     path="update/:productId"
                     element={<UpdateProductPage />}
