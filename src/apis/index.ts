@@ -23,3 +23,6 @@ export const getCategories = () => api.get("/category");
 
 export const getProduct = (productId: number) =>
     api.get(`/product/${productId}`);
+
+export const deleteProduct = (productId: number) =>
+    api.delete(`/product/${productId}`);
