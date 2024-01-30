@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ProductDataType } from "../types";
 import { UserOutlined } from "@ant-design/icons";
 import { TableTitle } from "../ui";
+import { DeleteProduct } from "../components";
 
 const ProductTableColumn: ColumnsType<ProductDataType> = [
     {
@@ -29,10 +30,7 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
         dataIndex: "name",
         key: "name",
         render: (text, recorer) => (
-            <Link
-                to={`/product/update/${recorer.id}`}
-                className="hover:text-active"
-            >
+            <Link to={`/product/${recorer.id}`} className="hover:text-active">
                 {text}
             </Link>
         ),
@@ -102,6 +100,13 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
                     </Tag>
                 );
             });
+        },
+    },
+    {
+        title: <TableTitle title="Action" />,
+        key: "action",
+        render: (_, recoder) => {
+            return <DeleteProduct productId={recoder.id} />;
         },
     },
 ];
