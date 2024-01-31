@@ -14,6 +14,8 @@ interface PayLoad {
     quantity: number;
 }
 
+type RemoveItemPayLoad = Omit<PayLoad, "quantity">;
+
 export const cartSlice = createSlice({
     name: "cart",
 
@@ -46,8 +48,16 @@ export const cartSlice = createSlice({
         setCart: (state, action: PayloadAction<CartDataType>) => {
             state.cart = action.payload;
         },
+
+        removeItem: (state, action: PayloadAction<RemoveItemPayLoad>) => {
+            const { productId } = action.payload;
+            if (!state.cart) return;
+            state.cart.totalItems -= state.cart?.items[productId];
+            delete state.cart?.items[productId];
+            window.localStorage.setItem("cart", JSON.stringify(state.cart));
+        },
     },
 });
 
-export const { addProduct, clearCart, setCart } = cartSlice.actions;
+export const { addProduct, clearCart, setCart, removeItem } = cartSlice.actions;
 export default cartSlice.reducer;
