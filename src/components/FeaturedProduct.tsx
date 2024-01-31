@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { getProducts } from "../apis";
 import { Loader } from "./";
+import { PER_PAGE } from "../constants";
 
 const FeaturedProduct = () => {
     const [productData, setProductData] = useState<ProductDataType[]>([]);
@@ -23,7 +24,12 @@ const FeaturedProduct = () => {
 
     const { isLoading } = useQuery({
         queryKey: ["getProducts"],
-        queryFn: async () => getProducts(),
+        queryFn: async () => {
+            const queryParams = { currentPage: 1, perPage: PER_PAGE };
+            const data = queryParams as unknown as Record<string, string>;
+            const queryString = new URLSearchParams(data).toString();
+            return getProducts(queryString);
+        },
         onSuccess: async ({ data }: ProductResponse) =>
             setProductData(data.products),
         onError: async (err: AxiosError) => handleOnError(err),
@@ -45,7 +51,7 @@ const FeaturedProduct = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-12 container mx-auto py-8">
+            <div className="grid grid-cols-2 gap-16 container mx-auto py-8">
                 {isLoading ? (
                     <Loader />
                 ) : (
