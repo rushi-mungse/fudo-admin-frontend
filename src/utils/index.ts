@@ -42,3 +42,14 @@ export const getProductSizeWithPrice = (
 export const getTotal = (price: number, quantity: number) => {
     return price * quantity;
 };
+
+export const getProductPrice = (
+    prices: ProductPriceDataType[],
+    productSize: string
+): number => {
+    const data = getProductSizeWithPrice(prices);
+    if (productSize === "small") return data.small;
+    else if (productSize === "medium") return data.medium;
+    else if (productSize === "large") return data.large;
+    return 0;
+};
