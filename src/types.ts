@@ -66,7 +66,13 @@ export interface UserDataResponse {
 }
 
 export interface ProductResponse {
-    data: { products: ProductDataType[] };
+    data: {
+        products: ProductDataType[];
+        perPage: number;
+        currentPage: number;
+        totalCount: number;
+        message: string;
+    };
 }
 
 export interface GetProductResponse {
