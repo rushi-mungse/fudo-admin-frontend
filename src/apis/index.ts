@@ -15,7 +15,8 @@ export const deleteUser = (userId: number) => api.delete(`/user/${userId}`);
 
 export const login = (data: LoginData) => api.post("/auth/login", data);
 
-export const getProducts = () => api.get("/product");
+export const getProducts = (queryString: string) =>
+    api.get(`/product?${queryString}`);
 
 export const logout = () => api.get("/auth/logout");
 
