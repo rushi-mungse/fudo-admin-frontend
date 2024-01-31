@@ -102,7 +102,7 @@ const SingleProduct = () => {
                     <Image src={product.imageUrl} height={400} />
                 </div>
 
-                <div className="w-[400px] p-10 shadow-sm shadow-pure/30">
+                <div className="w-[400px] p-10 shadow-sm shadow-pure/30 rounded-lg">
                     <Badge.Ribbon text={`${product.discount}% off`}>
                         <h1 className="text-active text-2xl p-0 m-0">
                             {product.name}
