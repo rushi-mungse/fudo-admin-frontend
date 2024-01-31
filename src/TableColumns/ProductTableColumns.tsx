@@ -1,16 +1,25 @@
+import moment from "moment";
 import { Avatar, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
 import { ProductDataType } from "../types";
+import type { ColumnsType } from "antd/es/table";
 import { UserOutlined } from "@ant-design/icons";
 import { TableTitle } from "../ui";
 import { DeleteProduct } from "../components";
 
 const ProductTableColumn: ColumnsType<ProductDataType> = [
     {
-        title: <TableTitle title="Product Id" />,
+        title: <TableTitle title="Id" />,
         dataIndex: "id",
         key: "id",
+        render: (id) => (
+            <Link
+                to={`/product/${id}`}
+                className="hover:text-active text-active/90"
+            >
+                #{id}
+            </Link>
+        ),
     },
     {
         title: <TableTitle title="Image" />,
@@ -26,7 +35,7 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
         ),
     },
     {
-        title: <TableTitle title="Product Name" />,
+        title: <TableTitle title="Name" />,
         dataIndex: "name",
         key: "name",
         render: (text, recorer) => (
@@ -35,19 +44,24 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
             </Link>
         ),
     },
+    // {
+    //     title: <TableTitle title="Description" />,
+    //     dataIndex: "description",
+    //     key: "description",
+    //     render: (text) => <p className="flex items-center">{text}</p>,
+    // },
     {
-        title: <TableTitle title="Description" />,
-        dataIndex: "description",
-        key: "description",
-    },
-    {
-        title: <TableTitle title="Product Status" />,
+        title: <TableTitle title="Status" />,
         dataIndex: "availability",
         key: "availability",
         render: (avail) => {
             const color = avail === true ? "blue" : "red";
             return (
-                <Tag color={color} key="avail" className="rounded-full px-2">
+                <Tag
+                    color={color}
+                    key="avail"
+                    className="rounded-full px-2 text-xs"
+                >
                     {avail ? "Available" : "Unavailable"}
                 </Tag>
             );
@@ -55,7 +69,7 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
     },
 
     {
-        title: <TableTitle title="Product Size | Price" />,
+        title: <TableTitle title="Size & Price" />,
         dataIndex: "prices",
         key: "prices",
         render: (_, record) => {
@@ -71,9 +85,9 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
                     <Tag
                         color={color}
                         key={price.id}
-                        className="rounded-full px-2 my-1"
+                        className="text-xs rounded-full px-2 my-1"
                     >
-                        {size} | {price.price}
+                        {size} | ₹{price.price}
                     </Tag>
                 );
             });
@@ -85,7 +99,7 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
         key: "discount",
     },
     {
-        title: <TableTitle title="Product Categories" />,
+        title: <TableTitle title="Categories" />,
         dataIndex: "prices",
         key: "prices",
         render: (_, record) => {
@@ -94,13 +108,21 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
                     <Tag
                         color="purple"
                         key={category.id}
-                        className="rounded-full px-2 my-1"
+                        className="rounded-full px-2 my-1 text-sm"
                     >
                         {category.name}
                     </Tag>
                 );
             });
         },
+    },
+    {
+        title: <TableTitle title="Created" />,
+        dataIndex: "createdAt",
+        key: "createdAt",
+        render: (text) => (
+            <p className="text-xs">{moment(text).format("DD/MM/YYYY")}</p>
+        ),
     },
     {
         title: <TableTitle title="Action" />,
