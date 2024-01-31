@@ -1,4 +1,4 @@
-import { Button, message } from "antd";
+import { Button, Tag, message } from "antd";
 import { ProductDataType } from "../types";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../hooks/reduxHooks";
@@ -22,7 +22,7 @@ const ProductCard = ({ product }: PropType) => {
             content: "Item added successfully.",
             duration: 3,
         });
-        dispatch(addProduct({ productId: product.id }));
+        dispatch(addProduct({ productId: product.id, quantity: 1 }));
     };
 
     return (
@@ -38,6 +38,19 @@ const ProductCard = ({ product }: PropType) => {
                     </span>
                     <span className="text-[8px] text-pure">Off</span>
                 </div>
+
+                <div className="absolute  top-6 left-[50%] flex items-center justify-center flex-col">
+                    {product.availability ? (
+                        <Tag color="blue" className="px-3 rounded-full">
+                            Available
+                        </Tag>
+                    ) : (
+                        <Tag color="red" className="px-3 rounded-full">
+                            Unavailable
+                        </Tag>
+                    )}
+                </div>
+
                 <div className="p-3 bg-activeLight rounded-md flex items-center justify-center">
                     <img
                         className="fit h-[250px] w-[350px]"
@@ -62,6 +75,7 @@ const ProductCard = ({ product }: PropType) => {
                             type="primary"
                             shape="round"
                             onClick={(e) => addToCart(e, product)}
+                            disabled={!product.availability}
                         >
                             Add
                         </Button>
