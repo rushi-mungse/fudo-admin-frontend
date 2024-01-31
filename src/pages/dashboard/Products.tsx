@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Button, Form } from "antd";
+import { Button, Card } from "antd";
 import { GrAddCircle } from "react-icons/gr";
-import { Modal, ProductList, CreateProduct } from "../../components";
-import { SearchInput } from "../../ui";
+import {
+    Modal,
+    ProductList,
+    CreateProduct,
+    ProductFilterForm,
+} from "../../components";
 
 const Products: React.FC = () => {
     const [open, setOpen] = useState(false);
@@ -10,28 +14,25 @@ const Products: React.FC = () => {
     const closeDrawer = () => setOpen(false);
     const handleOnClick = () => openDrawer();
 
-    const [form] = Form.useForm();
-
     return (
         <>
-            <div className="mb-8 flex items-center justify-between">
-                <div className="flex-center">
-                    <Form form={form}>
-                        <SearchInput
-                            placeholder="Search Product"
-                            name="productName"
-                        />
-                    </Form>
+            <Card className="mb-8 w-full">
+                <div className="w-full flex items-center justify-between">
+                    <ProductFilterForm
+                        onFilterChange={(filterName, filterValue) => {
+                            console.log(filterName, filterValue);
+                        }}
+                    />
+                    <Button
+                        type="primary"
+                        icon={<GrAddCircle />}
+                        className="flex items-center justify-center"
+                        onClick={handleOnClick}
+                    >
+                        Create Product
+                    </Button>
                 </div>
-                <Button
-                    type="primary"
-                    icon={<GrAddCircle />}
-                    className="flex items-center justify-center"
-                    onClick={handleOnClick}
-                >
-                    Create Product
-                </Button>
-            </div>
+            </Card>
 
             <ProductList />
 
