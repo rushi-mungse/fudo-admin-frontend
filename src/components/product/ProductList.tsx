@@ -5,10 +5,16 @@ import { useQuery } from "react-query";
 import { getProducts } from "../../apis";
 import { ProductTableColumn } from "../../TableColumns";
 import { ErrorType, ProductDataType, ProductResponse } from "../../types";
+import { PER_PAGE } from "../../constants";
 
 const ProductList: React.FC = () => {
     const [productData, setProductData] = useState<ProductDataType[]>([]);
     const [context, contextHolder] = message.useMessage();
+    const [totalCount, setTotalCount] = useState<number>(0);
+    const [queryParams, setQueryParams] = useState({
+        perPage: PER_PAGE,
+        currentPage: 1,
+    });
 
     const handleOnError = (err: AxiosError) => {
         const errors = err.response?.data as unknown as ErrorType;
@@ -20,10 +26,16 @@ const ProductList: React.FC = () => {
     };
 
     const { isLoading } = useQuery({
-        queryKey: ["getProducts"],
-        queryFn: async () => getProducts(),
-        onSuccess: async ({ data }: ProductResponse) =>
-            setProductData(data.products),
+        queryKey: ["getProducts", queryParams],
+        queryFn: async () => {
+            const data = queryParams as unknown as Record<string, string>;
+            const queryString = new URLSearchParams(data).toString();
+            return getProducts(queryString);
+        },
+        onSuccess: async ({ data }: ProductResponse) => {
+            setTotalCount(data.totalCount);
+            setProductData(data.products);
+        },
         onError: async (err: AxiosError) => handleOnError(err),
     });
 
@@ -33,7 +45,16 @@ const ProductList: React.FC = () => {
             <Table
                 bordered
                 columns={ProductTableColumn}
-                pagination={{ position: ["bottomRight"] }}
+                pagination={{
+                    total: totalCount,
+                    current: queryParams.currentPage,
+                    pageSize: queryParams.perPage,
+                    onChange: (page) => {
+                        setQueryParams((prev) => {
+                            return { ...prev, currentPage: page };
+                        });
+                    },
+                }}
                 dataSource={productData}
                 loading={isLoading}
                 rowKey="id"
