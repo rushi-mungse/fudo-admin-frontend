@@ -84,6 +84,7 @@ const SingleProduct = () => {
             setProductSizePrice(getProductSizeWithPrice(data.product.prices));
         },
         onError: async (err: AxiosError) => handleOnError(err),
+        keepPreviousData: true,
     });
 
     if (isLoading || !product || !productSizePrice)
