@@ -177,3 +177,9 @@ export interface ProductSizeAndPriceType {
     medium: number;
     large: number;
 }
+
+export interface ProductQuery {
+    q: unknown;
+    available: string;
+    category: string;
+}
