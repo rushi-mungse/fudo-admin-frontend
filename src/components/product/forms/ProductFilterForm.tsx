@@ -39,7 +39,7 @@ const ProductFilterForm = ({ onFilterChange }: PropType) => {
                 allowClear
                 placeholder="Search product"
                 style={{ width: 250 }}
-                onChange={(e) => onFilterChange("product", e.target.value)}
+                onChange={(e) => onFilterChange("q", e.target.value)}
                 suffix={<SearchOutlined className="text-gray" />}
             />
 
@@ -47,12 +47,10 @@ const ProductFilterForm = ({ onFilterChange }: PropType) => {
                 allowClear
                 placeholder="Select status"
                 style={{ width: 200 }}
-                onChange={(value) => onFilterChange("Status", value)}
+                onChange={(value) => onFilterChange("status", value)}
                 options={[
-                    { value: "jack", label: "Jack" },
-                    { value: "lucy", label: "Lucy" },
-                    { value: "Yiminghe", label: "yiminghe" },
-                    { value: "disabled", label: "Disabled", disabled: true },
+                    { value: "available", label: "Available" },
+                    { value: "unavailable", label: "Unavailable" },
                 ]}
             />
 
