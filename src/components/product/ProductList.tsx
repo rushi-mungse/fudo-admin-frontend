@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, message } from "antd";
 import { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { getProducts } from "../../apis";
 import { ProductTableColumn } from "../../TableColumns";
-import { ErrorType, ProductDataType, ProductResponse } from "../../types";
+import {
+    ErrorType,
+    ProductDataType,
+    ProductQuery,
+    ProductResponse,
+} from "../../types";
 import { PER_PAGE } from "../../constants";
 
-const ProductList: React.FC = () => {
+interface PropType {
+    query: ProductQuery;
+}
+
+const ProductList = ({ query }: PropType) => {
     const [productData, setProductData] = useState<ProductDataType[]>([]);
     const [context, contextHolder] = message.useMessage();
     const [totalCount, setTotalCount] = useState<number>(0);
@@ -25,7 +34,7 @@ const ProductList: React.FC = () => {
         });
     };
 
-    const { isLoading } = useQuery({
+    const { isFetching } = useQuery({
         queryKey: ["getProducts", queryParams],
         queryFn: async () => {
             const data = queryParams as unknown as Record<string, string>;
@@ -37,7 +46,14 @@ const ProductList: React.FC = () => {
             setProductData(data.products);
         },
         onError: async (err: AxiosError) => handleOnError(err),
+        keepPreviousData: true,
     });
+
+    useEffect(() => {
+        setQueryParams((prev) => {
+            return { ...prev, ...query };
+        });
+    }, [query]);
 
     return (
         <>
@@ -56,7 +72,7 @@ const ProductList: React.FC = () => {
                     },
                 }}
                 dataSource={productData}
-                loading={isLoading}
+                loading={isFetching}
                 rowKey="id"
             />
         </>
