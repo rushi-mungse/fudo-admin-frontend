@@ -108,7 +108,7 @@ const ProductTableColumn: ColumnsType<ProductDataType> = [
                     <Tag
                         color="purple"
                         key={category.id}
-                        className="rounded-full px-2 my-1 text-sm"
+                        className="rounded-full px-2 my-1 text-xs"
                     >
                         {category.name}
                     </Tag>
