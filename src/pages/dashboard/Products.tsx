@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Card } from "antd";
+import debounce from "debounce";
 import { GrAddCircle } from "react-icons/gr";
 import {
     Modal,
@@ -7,9 +8,15 @@ import {
     CreateProduct,
     ProductFilterForm,
 } from "../../components";
+import { ProductQuery } from "../../types";
 
 const Products: React.FC = () => {
     const [open, setOpen] = useState(false);
+    const [query, setQuery] = useState<ProductQuery>({
+        q: "",
+        available: "",
+        category: "",
+    });
     const openDrawer = () => setOpen(true);
     const closeDrawer = () => setOpen(false);
     const handleOnClick = () => openDrawer();
@@ -19,9 +26,11 @@ const Products: React.FC = () => {
             <Card className="mb-8 w-full">
                 <div className="w-full flex items-center justify-between">
                     <ProductFilterForm
-                        onFilterChange={(filterName, filterValue) => {
-                            console.log(filterName, filterValue);
-                        }}
+                        onFilterChange={debounce((filterName, filterValue) => {
+                            setQuery((prev) => {
+                                return { ...prev, [filterName]: filterValue };
+                            });
+                        }, 500)}
                     />
                     <Button
                         type="primary"
@@ -34,14 +43,13 @@ const Products: React.FC = () => {
                 </div>
             </Card>
 
-            <ProductList />
+            <ProductList query={query} />
 
             <Modal
                 open={open}
                 closeDrawer={closeDrawer}
                 title={"Create Product"}
             >
-                {/* <UpdateProduct productId={29} /> */}
                 <CreateProduct />
             </Modal>
         </>
