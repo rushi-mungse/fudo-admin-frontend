@@ -9,7 +9,7 @@ const useRefreshHook = () => {
     const { isLoading, isError } = useQuery({
         queryKey: ["userData"],
         queryFn: self,
-        onSuccess: ({ data }) => dispatch(setAuth(data)),
+        onSuccess: ({ data }) => dispatch(setAuth(data.user)),
         retry: false,
     });
 
