@@ -4,8 +4,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                active: "#FE9C00",
-                activeLight: "#F0F0F0",
+                active: "#FE416B",
+                activeLight: "#FDEDF0",
                 gray: "#606060",
                 bgColor: "#FFFFFF",
                 pure: "#000000",
