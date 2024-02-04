@@ -1,6 +1,5 @@
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import { Link, NavLink } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { Logo, PageLinks } from "../ui";
 import pageLinks from "../utils/pageLinks";
@@ -32,12 +31,12 @@ const Header = () => {
                             ],
                         }}
                     > */}
-                    <Input
+                    {/* <Input
                         allowClear
                         variant="filled"
                         placeholder="Search menu"
                         suffix={<SearchOutlined className="text-gray" />}
-                    />
+                    /> */}
                     {/* </ConfigProvider> */}
 
                     <CartItems />
