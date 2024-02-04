@@ -9,7 +9,7 @@ const Cart = () => {
     const dispatch = useAppDispatch();
     const cart = useAppSelector((state: RootState) => state.cartSlice.cart);
 
-    if (!cart) return <EmptyCart />;
+    if (!cart?.totalItems) return <EmptyCart />;
 
     const items = [];
     for (const key in cart?.items) {
