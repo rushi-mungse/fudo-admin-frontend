@@ -1,16 +1,18 @@
-import { Layout, Menu } from "antd";
-import { NavLink, useLocation } from "react-router-dom";
+import { Button, Col, Layout, Menu, Row } from "antd";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Logo } from "../../ui";
+import { Logo } from "../ui";
 import { GoHome } from "react-icons/go";
 import { BiLogoProductHunt, BiUser } from "react-icons/bi";
 import { GrOrderedList } from "react-icons/gr";
 import { CgSize } from "react-icons/cg";
 import { TbCategoryFilled } from "react-icons/tb";
 import { LuLogOut } from "react-icons/lu";
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { clearAuth } from "../../store/slices/auth";
-import { logout } from "../../apis";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { clearAuth } from "../store/slices/auth";
+import { logout } from "../apis";
+import Icon from "@ant-design/icons";
+import { ChefIcon } from "../icons";
 const { Sider } = Layout;
 
 const baseItems = [
@@ -86,6 +88,23 @@ const DashBoardSider = () => {
                         mode="inline"
                         items={baseItems}
                     />
+
+                    <Row className="bg-active shadow p-4 rounded-lg mx-2 mt-8">
+                        <Col span={12}>
+                            <p className="text-white leading-loose text-xs">
+                                organize your menus
+                            </p>
+                            <Button
+                                type="default"
+                                className="text-[10px] px-2 rounded-md py-[2px]"
+                            >
+                                <Link to="/dashboard/products">Add Menus</Link>
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <Icon component={ChefIcon} />
+                        </Col>
+                    </Row>
                 </div>
 
                 <Menu

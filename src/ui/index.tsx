@@ -15,3 +15,4 @@ export { default as SearchInput } from "./Fields/SearchInput";
 export { default as TextAreaField } from "./Fields/TextareaField";
 export { default as SelectField } from "./Fields/SelectField";
 export { default as UploadField } from "./Fields/UploadField";
+export { default as StatisticCard } from "./StatisticCard";

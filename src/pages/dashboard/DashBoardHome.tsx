@@ -1,44 +1,89 @@
-import { Card, Col, Row } from "antd";
+import { DatePicker, Flex, Typography } from "antd";
+import Icon from "@ant-design/icons";
 import { RootState } from "../../store";
+import { StatisticCard } from "../../ui";
 import { useAppSelector } from "../../hooks/reduxHooks";
-import { MdOutlineAddReaction } from "react-icons/md";
-import CountUp from "react-countup";
+import {
+    CanceledOrderIcon,
+    DeliveredIcon,
+    FilterIcon,
+    RevenueIcon,
+    TotalOrdersIcon,
+} from "../../icons";
+
+import OrderPerDayAreaChart from "../../charts/OrderPerDayAreaChart";
+import UserPerDayBarChart from "../../charts/UserPerDayBarChart";
+
+const { RangePicker } = DatePicker;
 
 const DashBoardHomePage = () => {
     const user = useAppSelector((state: RootState) => state.authReducer.user);
 
     return (
         <div>
-            <Card>
-                <h1 className="text-xl font-bold">
-                    Welcome back {user?.fullName}
-                </h1>
-            </Card>
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-bold p-0 m-0 tracking-wider">
+                        Dashboard
+                    </h1>
+                    <Typography.Text className="text-gray/60">
+                        Hi, {user?.fullName}. Welcome back to fudo admin
+                        dashboard.
+                    </Typography.Text>
+                </div>
+                <div className="shadow p-3 rounded-md flex items-center justify-center gap-4 bg-white">
+                    <Icon component={FilterIcon} />
+                    <div className="flex flex-col">
+                        <h1 className="text-lg font-bold tracking-wider pl-2 m-0">
+                            Filter Period
+                        </h1>
+                        <RangePicker variant="borderless" />
+                    </div>
+                </div>
+            </div>
 
-            <Row className="mt-8" gutter={8}>
-                <Col>
-                    <Card
-                        style={{ width: 200 }}
-                        hoverable
-                        className="bg-pink-100 shadow-md shadow-gray/60"
-                    >
-                        <div className="text-orange-400 font-bold text-lg">
-                            <span>Active Orders</span>
-                        </div>
-                        <div className="flex items-center justify-between mt-2">
-                            <span className="text-green-500">
-                                <MdOutlineAddReaction size={36} />
-                            </span>
-                            <CountUp end={123457} />
-                        </div>
-                        <span>Last 24 hourse</span>
-                    </Card>
-                </Col>
+            <Flex wrap="wrap" gap="large" className="mt-8">
+                <StatisticCard
+                    value={75}
+                    isIncreament
+                    lastDays={30}
+                    percentageValue={4}
+                    StatisticIcon={TotalOrdersIcon}
+                    title="Total Orders"
+                />
 
-                <Col>
-                    <Card style={{ width: 200 }}></Card>
-                </Col>
-            </Row>
+                <StatisticCard
+                    value={400}
+                    isIncreament
+                    lastDays={30}
+                    percentageValue={21}
+                    StatisticIcon={DeliveredIcon}
+                    title="Total Delivered"
+                />
+
+                <StatisticCard
+                    value={10}
+                    isIncreament={false}
+                    lastDays={30}
+                    percentageValue={1}
+                    StatisticIcon={CanceledOrderIcon}
+                    title="Total Canceled"
+                />
+
+                <StatisticCard
+                    value={15}
+                    isIncreament
+                    lastDays={30}
+                    percentageValue={8}
+                    StatisticIcon={RevenueIcon}
+                    title="Total Revenue"
+                />
+            </Flex>
+
+            <div className="flex items-center justify-between mt-10">
+                <OrderPerDayAreaChart />
+                <UserPerDayBarChart />
+            </div>
         </div>
     );
 };

@@ -41,7 +41,7 @@ import {
     ProductPriceCurrencyRules,
     ProductSmallSizePriceRules,
 } from "../../../utils/rules";
-import { Loader } from "../../";
+import { Loader } from "../..";
 
 interface PropType {
     productId: number;
