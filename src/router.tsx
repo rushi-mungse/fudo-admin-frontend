@@ -28,6 +28,7 @@ import {
     Products,
 } from "./pages";
 import UpdateProductPage from "./pages/dashboard/UpdateProduct";
+import Menu from "./pages/Menu";
 
 const GuestRoute = () => {
     return (
@@ -77,7 +78,7 @@ const DashBoardRoute = () => {
                 <DashBoardSider />
                 <Layout>
                     <DashBoardHeader />
-                    <div className="p-8 h-full">
+                    <div className="h-full rounded-md p-8 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
                         <Outlet />
                     </div>
                 </Layout>
@@ -92,6 +93,7 @@ const Router = createBrowserRouter(
             <Route path="" element={<GuestRoute />}>
                 <Route index element={<HomePage />} />
                 <Route path="cart" element={<CartPage />} />
+                <Route path="menu" element={<Menu />} />
             </Route>
 
             <Route path="auth" element={<NonAuthRoute />}>

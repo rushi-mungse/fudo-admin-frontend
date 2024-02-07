@@ -35,6 +35,7 @@ import {
     ProductPriceCurrencyRules,
     ProductSmallSizePriceRules,
 } from "../../../utils/rules";
+import { Loader } from "../..";
 
 const CreateProduct = () => {
     const [form] = Form.useForm();
@@ -61,7 +62,7 @@ const CreateProduct = () => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [availability, setAvailability] = useState<boolean>(false);
 
-    const { mutate } = useMutation({
+    const { mutate, isLoading: createProductLoading } = useMutation({
         mutationKey: ["createProduct"],
         mutationFn: async (data: FormData) => createProduct(data),
         onSuccess: async ({ data }) => {
@@ -101,6 +102,14 @@ const CreateProduct = () => {
 
         mutate(formData);
     };
+
+    if (createProductLoading)
+        return (
+            <div className="container flex items-center justify-center h-full">
+                {contextHolder}
+                <Loader />
+            </div>
+        );
 
     return (
         <div>

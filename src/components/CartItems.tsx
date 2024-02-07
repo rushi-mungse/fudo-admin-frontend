@@ -13,7 +13,7 @@ const CartItems = () => {
                 <ShoppingCartOutlined
                     style={{ fontSize: 16, paddingLeft: 4 }}
                 />
-                <p className="mb-0 mr-[4px]">
+                <p className="mb-0 mr-1">
                     {cart ? roundCartItems(cart.totalItems) : 0}{" "}
                 </p>
             </Badge>

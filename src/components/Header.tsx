@@ -22,23 +22,6 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="flex items-center justify-center gap-4">
-                    {/* <ConfigProvider
-                        theme={{
-                            token: { colorPrimary: "transparent" },
-                            algorithm: [
-                                theme.darkAlgorithm,
-                                theme.compactAlgorithm,
-                            ],
-                        }}
-                    > */}
-                    {/* <Input
-                        allowClear
-                        variant="filled"
-                        placeholder="Search menu"
-                        suffix={<SearchOutlined className="text-gray" />}
-                    /> */}
-                    {/* </ConfigProvider> */}
-
                     <CartItems />
 
                     {!isAuth ? (

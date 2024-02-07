@@ -82,7 +82,7 @@ const UpdateProduct = ({ productId }: PropType) => {
         });
     };
 
-    const { mutate } = useMutation({
+    const { mutate, isLoading: updateProductLoading } = useMutation({
         mutationKey: ["updateProduct", productId],
         mutationFn: async ({
             data,
@@ -131,9 +131,9 @@ const UpdateProduct = ({ productId }: PropType) => {
         mutate({ data: formData, productId });
     };
 
-    if (isLoading || !product)
+    if (isLoading || !product || updateProductLoading)
         return (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center h-full w-full">
                 <Loader />
             </div>
         );

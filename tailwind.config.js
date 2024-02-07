@@ -9,6 +9,8 @@ export default {
                 gray: "#606060",
                 bgColor: "#FFFFFF",
                 pure: "#000000",
+                // bgColor: "#000000",
+                // pure: "#FFFFFF",
             },
             boxShadow: {
                 shadow: "rgba(0,_0,_0,_0.1)_0px_0px_16px",
